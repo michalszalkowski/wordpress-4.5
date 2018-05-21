@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  wordpress45:
+    image: wordpress:4.5
+    restart: always
+    build: ./
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_PASSWORD: example
+    networks:
+      - backend
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      - backend
+
+networks:
+  backend:
